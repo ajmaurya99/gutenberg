@@ -51,8 +51,9 @@
 		}
 
 		// Center the block toolbar on wide and full-wide blocks.
-		&[data-align="full"] > .editor-block-list__block-edit > .editor-block-contextual-toolbar,
-		&[data-align="wide"] > .editor-block-list__block-edit > .editor-block-contextual-toolbar { // Don't affect nested block toolbars.
+		// Use specific selector to not affect nested block toolbars.
+		&[data-align="wide"] > .editor-block-list__block-edit > .editor-block-contextual-toolbar,
+		&[data-align="full"] > .editor-block-list__block-edit > .editor-block-contextual-toolbar {
 			width: calc( 100% + #{ $parent-block-padding + $parent-block-padding + $border-width + $border-width } );
 			height: 0px; // This collapses the container to an invisible element without margin.
 			text-align: center;
@@ -61,6 +62,15 @@
 				max-width: $content-width + $block-padding + $block-padding;
 				width: 100%;
 				position: relative;
+			}
+		}
+
+		// The centering math changes when a fullwide image doesn't have block padding.
+		&[data-align="full"] > .editor-block-list__block-edit > .editor-block-contextual-toolbar {
+			width: calc( 100% + #{ $block-padding + $block-padding } );
+
+			.editor-block-toolbar {
+				max-width: $content-width - $border-width - $border-width;
 			}
 		}
 	}
